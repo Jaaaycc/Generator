@@ -5,79 +5,6 @@
 
 import { useState, useRef } from 'react';
 
-const styles = 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  .wunjo-spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #2563eb;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-  }
-  .wunjo-video {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-  }
-  .wunjo-progress-bar {
-    width: 100%;
-    height: 8px;
-    background: #f0f0f0;
-    border-radius: 4px;
-    margin-top: 10px;
-    overflow: hidden;
-  }
-  .wunjo-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #2563eb, #7c3aed);
-    transition: width 0.3s ease;
-    border-radius: 4px;
-  }
-  .wunjo-error {
-    padding: 15px;
-    background: #fee2e2;
-    border: 1px solid #fca5a5;
-    border-radius: 8px;
-    color: #dc2626;
-  }
-  .wunjo-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
-    font-size: 14px;
-  }
-  .wunjo-btn:disabled {
-    background: #ccc !important;
-    cursor: not-allowed;
-  }
-  .wunjo-btn-primary { background: #2563eb; }
-  .wunjo-btn-secondary { background: #7c3aed; }
-  .wunjo-btn-success { background: #22c55e; }
-  .wunjo-btn-outline {
-    background: transparent;
-    color: #666;
-    border: 1px solid #ccc;
-  }
-  .wunjo-controls {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-  }
-  .wunjo-loading {
-    padding: 20px;
-    text-align: center;
-  }
-;
-
 export default function WunjoAI({ 
     text = '', 
     voiceId = 'default', 
@@ -217,8 +144,6 @@ export default function WunjoAI({
 
     return (
         <div style={{ padding: '10px 0' }}>
-            <style dangerouslySetInnerHTML={{ __html: styles }} />
-            
             <audio ref={audioRef} style={{ display: 'none' }} />
             
             {videoUrl && (
