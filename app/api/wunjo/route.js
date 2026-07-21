@@ -21,7 +21,7 @@ export async function POST(request) {
         const body = await request.json();
         const { action, text, voiceId, faceId, audioFile } = body;
 
-        console.log(🎬 Wunjo API request: );
+        console.log('🎬 Wunjo API request:', action);
 
         let endpoint = '';
         let requestBody = {};
@@ -66,13 +66,13 @@ export async function POST(request) {
 
             default:
                 return NextResponse.json(
-                    { error: Unknown action:  },
+                    { error: 'Unknown action: ' + action },
                     { status: 400 }
                 );
         }
 
         // Call Wunjo CE API
-        const response = await fetch(${WUNJO_CONFIG.baseUrl}, {
+        const response = await fetch(WUNJO_CONFIG.baseUrl + endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export async function POST(request) {
             const errorText = await response.text();
             console.error('❌ Wunjo API error:', response.status, errorText);
             return NextResponse.json(
-                { error: Wunjo API error:  },
+                { error: 'Wunjo API error: ' + response.status },
                 { status: response.status }
             );
         }
@@ -92,13 +92,13 @@ export async function POST(request) {
         // Check if response is binary (audio/video) or JSON
         const contentType = response.headers.get('content-type');
         
-        if (contentType && contentType.startsWith('audio/') || contentType.startsWith('video/')) {
+        if (contentType && (contentType.startsWith('audio/') || contentType.startsWith('video/'))) {
             // Return binary data
             const buffer = await response.arrayBuffer();
             return new NextResponse(buffer, {
                 headers: {
                     'Content-Type': contentType,
-                    'Content-Disposition': ttachment; filename="output.",
+                    'Content-Disposition': 'attachment; filename="output.' + contentType.split('/')[1] + '"',
                 },
             });
         } else {
@@ -119,7 +119,7 @@ export async function POST(request) {
 // GET endpoint to check Wunjo CE status
 export async function GET() {
     try {
-        const response = await fetch(${WUNJO_CONFIG.baseUrl}/health, {
+        const response = await fetch(WUNJO_CONFIG.baseUrl + '/health', {
             method: 'GET',
         });
         
